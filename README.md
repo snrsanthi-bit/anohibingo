@@ -1,24 +1,29 @@
-# README
+# Ano Hi no Bingo（あの日のビンゴ）
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 概要
 
-Things you may want to cover:
+小学生の頃、姉と裏紙に書いて遊んでいた2人用ビンゴを
+Ruby on Railsで再構築するプロジェクトです。
 
-* Ruby version
+一般的なビンゴとは異なり、
+相手の宣言が自分にとって「お邪魔」になる
+心理戦型のビンゴゲームです。
 
-* System dependencies
+## 制作背景
 
-* Configuration
+子供の頃に考案したオリジナルビンゴを、
+エンジニアとして再構築したいと思い制作を開始しました。
 
-* Database creation
+## MVP（最小実装）
 
-* Database initialization
+- ソロモード実装
+- 勝敗判定ロジック
+- 引き分け判定
+- 手書き風UI
 
-* How to run the test suite
+## 今後の予定
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- ルーム機能
+- フレンド対戦
+- 勝敗履歴保存
+- RSpec導入
