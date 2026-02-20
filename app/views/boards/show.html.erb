@@ -1,7 +1,21 @@
+
 <% @board.each do |row| %>
-  <div>  
+  <div>
     <% row.each do |number| %>
-      <span style="margin-right: 10px;"><%= number %></span>
+      <% if @marks["player"].include?(number) %>  
+        <span style="margin-right: 10px; color:red;"><%= number %></span>
+      <% elsif @marks["opponent"].include?(number) %>
+        <span style="margin-right: 10px; color: blue;"><%= number %></span>
+      <% else %>  
+        <%= button_to number, mark_path(number: number), method: :post %>
+        <%= button_to "青", mark_path(number: number, type: "opponent"), method: :post %> 
+      <% end %>
     <% end %>
-  </div>  
-<% end %>    
+  </div>
+<% end %>
+  <%= button_to "リセット", reset_path, method: :post %>
+<% if @winner == "draw" %>
+  <h2>DRAW!</h2>
+<% elsif @winner %>
+  <h2><%= @winner.upcase %> WIN!</h2>
+<% end %>
