@@ -1,0 +1,68 @@
+<main class="w-full max-w-4xl min-h-[800px] flex flex-col items-center justify-center relative bg-grid rounded-xl shadow-2xl border-4 border-primary/5 p-12">
+<!-- Background Doodles -->
+<div class="absolute top-10 right-10 opacity-20 rotate-12">
+<span class="material-symbols-outlined text-6xl text-primary">grid_4x4</span>
+</div>
+<div class="absolute bottom-20 left-10 opacity-20 -rotate-12">
+<span class="material-symbols-outlined text-7xl text-primary">edit</span>
+</div>
+<div class="absolute top-1/4 left-5 opacity-10">
+<span class="material-symbols-outlined text-4xl text-primary">auto_awesome</span>
+</div>
+<!-- Hero Section -->
+<div class="w-full max-w-md text-center mb-12 relative">
+<!-- Decorative Bingo Ball Doodle -->
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 w-16 h-16 border-2 border-primary/30 rounded-full flex items-center justify-center rotate-6">
+<span class="text-primary/50 font-bold text-xl">B</span>
+</div>
+<h1 class="text-6xl font-black text-primary mb-4 hand-drawn-font relative inline-block">
+                2人用ビンゴ
+                <svg class="absolute -bottom-2 left-0 w-full h-2 text-primary/30" preserveaspectratio="none" viewbox="0 0 100 10">
+<path d="M0,5 Q25,0 50,5 T100,5" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</h1>
+<p class="text-primary/60 font-medium mt-4">Simple &amp; Fun Paper Style</p>
+</div>
+<!-- Illustration Card (Placeholder/Component inspired) -->
+<div class="w-full max-w-[320px] mb-12 aspect-square bg-white dark:bg-slate-800 sketch-border flex items-center justify-center relative overflow-hidden shadow-sm">
+<div class="absolute inset-0 bg-primary/5"></div>
+<div class="relative z-10 flex flex-col items-center gap-4">
+<div class="grid grid-cols-3 gap-2">
+<div class="size-10 border-2 border-primary/40 rounded flex items-center justify-center font-bold text-primary/40">12</div>
+<div class="size-10 border-2 border-primary rounded flex items-center justify-center font-bold text-primary bg-primary/10">7</div>
+<div class="size-10 border-2 border-primary/40 rounded flex items-center justify-center font-bold text-primary/40">24</div>
+<div class="size-10 border-2 border-primary rounded flex items-center justify-center font-bold text-primary bg-primary/10 text-2xl">X</div>
+<div class="size-10 border-2 border-primary/40 rounded flex items-center justify-center font-bold text-primary/40"><div class="size-7 border-[3px] border-red-500 rounded-full flex items-center justify-center rotate-6"></div></div>
+<div class="size-10 border-2 border-primary rounded flex items-center justify-center font-bold text-primary bg-primary/10">3</div>
+</div>
+<div class="text-xs font-bold text-primary/60 tracking-tighter">B I N G O</div>
+</div>
+<img class="hidden" data-alt="Hand-drawn bingo grid with some numbers circled and a pencil sketch nearby" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpdnF-TA77WqB_qqasjnRDmwck2iKhbcGnOOeQqxwFpeItYemVNLrbzjW-zboQViylT8KiuvmrKaoIARUBOh8KN0cFUFRHptjhMz13sIbdRZcl_VcM8BH7CxaV54Hkn4zcCn6Xg0LnOR6WVTuD6CELN50abFwg67JOHDbmqnKRzcoSS5B6bk7uUvuBsfAgN32sToOxHaajM03RhtdGI4t78hfUg360LSDbA5wueFTRMRF5O53jCI2JTPGjmOYIhNE5kCsds--9d7vU"/>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-6 w-full max-w-[400px] z-20">
+<!-- Solo Play -->
+<%= link_to solo_path, class: "w-full py-4 bg-white dark:bg-slate-800 text-primary sketch-border font-bold text-xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform active:translate-y-1" do %>
+<span class="material-symbols-outlined">person</span>
+                ひとり用
+            <% end %>
+<!-- Friend Match (Primary Action) -->
+<%= button_to rooms_path,
+            method: :post,
+            class: "w-full py-5 bg-primary text-white sketch-border-thick font-bold text-2xl flex items-center justify-center gap-3 shadow-lg hover:scale-[1.02] transition-transform active:translate-y-1 relative" do %>
+
+  <span class="material-symbols-outlined text-3xl">groups</span>
+  ふたり用
+
+  <div class="absolute -top-4 -right-2 bg-yellow-400 text-[#111318] text-[10px] px-2 py-0.5 rounded-full border-2 border-[#111318] rotate-12 font-black uppercase">
+    Rec!
+  </div>
+
+<% end %>
+<!-- How to Play -->
+<%= link_to how_to_play_path, class: "w-full py-4 bg-transparent text-primary/70 sketch-border border-dashed font-bold text-lg flex items-center justify-center gap-3 hover:bg-primary/5 transition-colors" do %>
+<span class="material-symbols-outlined">help_outline</span>
+                あそびかた
+            <% end %>
+</div>
+<div class="absolute top-20 left-20 opacity-20 rotate-45"><span class="material-symbols-outlined text-8xl text-primary">gesture</span></div><div class="absolute bottom-10 right-20 opacity-20 -rotate-12"><span class="material-symbols-outlined text-9xl text-primary">draw</span></div><div class="absolute top-1/2 -right-10 opacity-10 rotate-90"><span class="material-symbols-outlined text-6xl text-primary">edit_note</span></div></main>

@@ -1,16 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <title>AnoHiNoBingo</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <title>2人用ビンゴ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+     <%= javascript_importmap_tags %>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#1152d4",
+              "background-light": "#fbfbf9",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              display: ["Spline Sans", "sans-serif"]
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "2rem",
+              xl: "3rem",
+              full: "9999px"
+            },
+          },
+        },
+      }
+    </script>
+
+    <style>
+      .sketch-border {
+        border: 2px solid #1152d4;
+        border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      }
+      .sketch-border-thick {
+        border: 3px solid #1152d4;
+        border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+      }
+      .bg-grid {
+        background-image: radial-gradient(#d1d5db 0.5px, transparent 0.5px);
+        background-size: 20px 20px;
+      }
+      .hand-drawn-font {
+        font-family: 'Spline Sans', sans-serif;
+        letter-spacing: -0.02em;
+      }
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
   </head>
 
-  <body>
+  <body class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white min-h-screen ">
     <%= yield %>
   </body>
 </html>

@@ -6,11 +6,20 @@ class BoardsController < ApplicationController
   def mark
     game = Game.new(session)
     game.declare(params[:number].to_i)
-    redirect_to root_path
+
+     if game.winner
+      redirect_to result_path
+    else
+      redirect_to solo_path
+    end
   end
 
   def reset
     session.clear
-    redirect_to root_path
+    redirect_to solo_path
+  end
+
+  def result
+    @game = Game.new(session)
   end
 end

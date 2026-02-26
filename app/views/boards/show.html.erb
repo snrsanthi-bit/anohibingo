@@ -1,28 +1,41 @@
-<h2>あなたの盤面</h2>
-
-<% @game.player_board.each do |row| %>
-  <div>
+<div class="turn-wrapper">
+  <div class="turn-box <%= @game.current_turn %>">
+    <% if @game.current_turn == "player" %>
+      あなたの番
+    <% else %>
+      相手の番
+    <% end %>
+  </div>
+</div>
+<div class="board">
+  <% @game.player_board.each do |row| %>
     <% row.each do |number| %>
 
       <% if @game.player_marks.include?(number) %>
-        <span style="margin-right: 10px; color:red;">
+        <div class="cell player-mark">
           <%= number %>
-        </span>
+        </div>
 
-      <% elsif @game.declared_numbers.include?(number) %>
-        <span style="margin-right: 10px; color: gray;">
+      <% elsif @game.player_obstacles.include?(number) %>
+        <div class="cell opponent-mark">
           <%= number %>
-        </span>
+        </div>
 
       <% else %>
-        <%= button_to number, mark_path(number: number), method: :post %>
+        <%= button_to mark_path(number: number),
+                      method: :post,
+                      class: "cell cell-button" do %>
+          <%= number %>
+        <% end %>
       <% end %>
 
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>
 
-<%= button_to "リセット", reset_path, method: :post %>
+<div class="center">
+  <%= button_to "もう一度遊ぶ", reset_path, method: :post, class: "reset-btn" %>
+</div>
 
 <% if @game.winner == "draw" %>
   <h2>DRAW!</h2>
@@ -41,8 +54,8 @@
           <%= number %>
         </span>
 
-      <% elsif @game.declared_numbers.include?(number) %>
-        <span style="margin-right: 10px; color: gray;">
+      <% elsif @game.opponent_obstacles.include?(number) %>
+        <span style="margin-right: 10px; color: red;">
           <%= number %>
         </span>
 

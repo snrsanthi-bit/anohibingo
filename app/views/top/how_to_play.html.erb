@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .hand-drawn-border {
+            border: 3px solid #111318;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+        }
+        .hand-drawn-bg {
+            background-color: #ffffff;
+            background-image: radial-gradient(#d1d5db 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+        }
+        .sketch-line {
+            height: 3px;
+            background: #111318;
+            border-radius: 50%;
+            transform: rotate(-1deg);
+        }
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(17, 82, 212, 0.2) 0%, rgba(17, 82, 212, 0.2) 100%);
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111318]">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center p-4 md:p-8 hand-drawn-bg">
+<!-- Header Section -->
+<div class="w-full max-w-md flex items-center mb-8 justify-center">
+<div class="relative">
+<h1 class="text-4xl font-bold tracking-tighter transform -rotate-2 px-4 py-2">
+                    あそびかた
+                </h1>
+<div class="absolute -bottom-1 left-0 w-full sketch-line opacity-40"></div>
+</div>
+ <!-- Spacer for centering -->
+</div>
+<div class="w-full max-w-md space-y-6">
+<!-- Rule 1: Basics -->
+<div class="hand-drawn-border p-5 bg-white shadow-sm transform rotate-1">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary font-bold">grid_on</span>
+<h2 class="text-xl font-bold">1. 基本ルール</h2>
+</div>
+<p class="text-sm leading-relaxed mb-4">
+                    1から25の数字が並んだ5x5の盤面で戦うよ。<span class="marker-highlight font-bold">真ん中のFREEマスはないよ！</span>
+</p>
+<div class="w-full aspect-video bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden relative" data-alt="Sketch of a 5x5 bingo grid with numbers 1 to 25">
+<div class="grid grid-cols-5 gap-1 opacity-40">
+<div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div>
+<div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div>
+<div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black bg-red-100 flex items-center justify-center font-bold text-red-500">X</div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div>
+<div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div>
+<div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div><div class="size-6 border border-black"></div>
+</div>
+<div class="absolute inset-0 flex items-center justify-center rotate-12">
+<div class="bg-white/80 px-4 py-1 border-2 border-red-500 text-red-500 font-bold rounded-full">NO FREE!</div>
+</div>
+</div>
+</div>
+<!-- Rule 2: Declaration -->
+<div class="hand-drawn-border p-5 bg-white shadow-sm transform -rotate-1">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary font-bold">record_voice_over</span>
+<h2 class="text-xl font-bold">2. 数字の宣言</h2>
+</div>
+<p class="text-sm leading-relaxed">
+                    交互に好きな数字を1つずつ選ぶよ。相手の盤面も考えて慎重に！
+                </p>
+<div class="mt-4 flex justify-around items-center">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-3xl">face</span>
+<div class="w-12 h-1 bg-gray-200 rounded-full"></div>
+</div>
+<div class="text-2xl font-black text-primary animate-pulse">「15！」</div>
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-3xl">face_5</span>
+<div class="w-12 h-1 bg-gray-200 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Rule 3: Ojama Rule -->
+<div class="hand-drawn-border p-5 bg-primary/5 shadow-md border-primary border-[4px]">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary font-bold">warning</span>
+<h2 class="text-xl font-bold">3. お邪魔ルール <span class="text-xs text-primary">(ここが大事!)</span></h2>
+</div>
+<ul class="space-y-4 text-sm">
+<li class="flex items-start gap-3">
+<div class="size-6 rounded-full bg-primary flex-shrink-0 flex items-center justify-center text-white font-bold text-xs mt-0.5">自</div>
+<div>
+<p class="font-bold underline decoration-primary decoration-2">自分が言った数字：</p>
+<p>自分の盤面が埋まる（<span class="text-primary font-bold">攻め！</span>）</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<div class="size-6 rounded-full bg-gray-400 flex-shrink-0 flex items-center justify-center text-white font-bold text-xs mt-0.5">他</div>
+<div>
+<p class="font-bold underline decoration-gray-400 decoration-2">相手が言った数字：</p>
+<p>自分の盤面が「<span class="text-red-500 font-bold">お邪魔マーク(X)</span>」になる。</p>
+</div>
+</li>
+</ul>
+<div class="mt-4 bg-red-50 p-3 rounded-xl border border-red-200 text-red-600 text-xs font-bold text-center">
+                    ※お邪魔マークは消せないから注意！
+                </div>
+</div>
+<!-- Rule 4: Victory -->
+<div class="hand-drawn-border p-5 bg-white shadow-sm transform rotate-1">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-yellow-500 font-bold">emoji_events</span>
+<h2 class="text-xl font-bold">4. 勝利条件</h2>
+</div>
+<p class="text-sm leading-relaxed mb-4">
+                    縦・横・斜めのどれか1ラインが先に揃った方の勝ち！
+                </p>
+<div class="flex justify-center gap-4">
+<div class="relative p-2 border border-gray-200 rounded">
+<div class="grid grid-cols-3 gap-1 opacity-30">
+<div class="size-4 bg-black"></div><div class="size-4 bg-black"></div><div class="size-4 bg-black"></div>
+<div class="size-4 border border-black"></div><div class="size-4 border border-black"></div><div class="size-4 border border-black"></div>
+<div class="size-4 border border-black"></div><div class="size-4 border border-black"></div><div class="size-4 border border-black"></div>
+</div>
+<div class="absolute top-4 left-0 w-full h-0.5 bg-primary -rotate-3"></div>
+</div>
+<div class="relative p-2 border border-gray-200 rounded">
+<div class="grid grid-cols-3 gap-1 opacity-30">
+<div class="size-4 bg-black"></div><div class="size-4 border border-black"></div><div class="size-4 border border-black"></div>
+<div class="size-4 bg-black"></div><div class="size-4 border border-black"></div><div class="size-4 border border-black"></div>
+<div class="size-4 bg-black"></div><div class="size-4 border border-black"></div><div class="size-4 border border-black"></div>
+</div>
+<div class="absolute top-0 left-4 h-full w-0.5 bg-primary rotate-3"></div>
+</div>
+</div>
+</div>
+<!-- OK Button -->
+<div class="pt-6 pb-10">
+<%=link_to root_path, class: "block w-full py-4 text-2xl font-black bg-primary text-white hand-drawn-border border-primary shadow-[4px_4px_0px_0px_rgba(17,82,212,0.3)] hover:translate-y-1 hover:shadow-none transition-all duration-75 text-center" do %>
+                    OK！わかった
+                <% end %>
+</div>
+</div>
+<!-- Navigation Bar Mock -->
+</div>
+</body></html>

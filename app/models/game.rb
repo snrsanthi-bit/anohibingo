@@ -27,22 +27,41 @@ class Game
   end
 
   def declare(number)
+    #Rails.logger.debug "DECLARE CALLED #{number}"
+    #Rails.logger.debug "CURRENT TURN #{current_turn}"
     return if winner
     return unless valid_declaration?(number)
 
-    session[:declared_numbers] << number
+    session[:declared_numbers] << {
+      "number" => number,
+      "by" => current_turn
+  }  
 
     check_winner
     switch_turn unless winner
+    cpu_declare if current_turn == "opponent" && !winner
   end
 
   def player_marks
-    marks_for(player_board)
+    marks_for(player_board, "player")
   end
 
   def opponent_marks
-    marks_for(opponent_board)
+    marks_for(opponent_board, "opponent")
   end
+
+  def declared_numbers_list
+    declared_numbers.map { |d| d["number"] }
+  end
+
+  def player_obstacles
+    obstacles_for(player_board, "player")
+  end
+
+  def opponent_obstacles
+    obstacles_for(opponent_board, "opponent")
+  end
+
 
   private
 
@@ -54,8 +73,11 @@ class Game
   end
 
   def valid_declaration?(number)
+    #Rails.logger.debug "VALID CHECK START"
+    #Rails.logger.debug "DECLARED NUMBERS: #{declared_numbers.inspect}"
+
     return false unless (1..25).include?(number)
-    return false if declared_numbers.include?(number)
+    return false if declared_numbers.any? { |d| d["number"] == number }
     true
   end
 
@@ -74,7 +96,22 @@ class Game
       current_turn == "player" ? "opponent" : "player"
   end
 
-  def marks_for(board)
-    declared_numbers.select { |n| board.flatten.include?(n) }
+  def marks_for(board, owner)
+    declared_numbers
+      .select { |d| d["by"] == owner }
+      .map { |d| d["number"] }
+      .select { |n| board.flatten.include?(n) }
+  end
+  def obstacles_for(board, owner)
+    declared_numbers
+      .reject { |d| d["by"] == owner }
+      .map { |d| d["number"] }
+      .select { |n| board.flatten.include?(n) }
+  end
+
+  def cpu_declare
+    available = (1..25).to_a - declared_numbers.map { |d| d["number"] }
+    return if available.empty?
+    declare(available.sample)
   end
 end

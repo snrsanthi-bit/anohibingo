@@ -1,0 +1,39 @@
+<main class="relative flex h-auto min-h-screen w-full flex-col paper-texture overflow-x-hidden p-6 mx-auto max-w-xl md:py-12">
+
+  <!-- タイトル -->
+  <div class="relative text-center mb-8">
+    <h1 class="text-primary text-6xl font-black leading-tight tracking-tighter">
+      あなたの勝ち！
+      <span class="block text-xl font-bold text-gold mt-2 tracking-widest uppercase">
+        CONGRATULATIONS!
+      </span>
+    </h1>
+  </div>
+
+  <!-- ビンゴボード（仮固定） -->
+  <div class="bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-sm border-2 border-primary/10 mb-10">
+
+    <div class="grid grid-cols-5 gap-2">
+      <% @game.player_board.each_with_index do |row, i| %>
+        <% row.each do |cell| %>
+          <div class="aspect-square bg-primary/5 rounded border border-primary/10 flex items-center justify-center text-primary/30 font-bold">
+            <%= cell %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+
+  <!-- ボタン -->
+  <div class="flex flex-col gap-4 mt-auto">
+
+    <%= link_to "もう一度遊ぶ", solo_path,
+          class: "bg-primary text-white font-bold py-5 rounded-full shadow-lg text-center" %>
+
+    <%= link_to "ホームへ戻る", root_path,
+          class: "bg-primary/10 text-primary font-semibold py-4 rounded-full text-center" %>
+
+  </div>
+
+</main>
