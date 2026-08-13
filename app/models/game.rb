@@ -112,6 +112,20 @@ class Game
   def cpu_declare
     available = (1..25).to_a - declared_numbers.map { |d| d["number"] }
     return if available.empty?
-    declare(available.sample)
+
+    cpu_board = opponent_board
+    cpu_marks = opponent_marks
+
+    winning_move = available.find do |n|
+      Board.bingo?(cpu_board, cpu_marks + [n])
+    end
+    return declare(winning_move) if winning_move
+
+    cpu_numbers = cpu_board.flatten
+    meaningful = available.select { |n| cpu_numbers.include?(n) }
+    
+    move = meaningful.sample || available.sample
+
+    declare(move)
   end
 end

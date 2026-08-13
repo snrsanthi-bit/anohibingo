@@ -12,6 +12,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet"/>
 
     <script>
       tailwind.config = {
@@ -24,7 +25,8 @@
               "background-dark": "#101622",
             },
             fontFamily: {
-              display: ["Spline Sans", "sans-serif"]
+              display: ["Spline Sans", "sans-serif"],
+              hand: ["Gochi Hand", "cursive"]
             },
             borderRadius: {
               DEFAULT: "1rem",
@@ -56,6 +58,50 @@
       }
       body {
         min-height: max(884px, 100dvh);
+      }
+      .paper-texture {
+        background-color: #fdfdfd;
+        background-image: 
+          linear-gradient(rgba(17, 82, 212, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(17, 82, 212, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+
+      .hand-drawn-border {
+        border: 2px solid #1e293b;
+        border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      }
+
+      .scribble-circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        border: 3px solid #1152d4;
+        border-radius: 50% 45% 55% 48% / 48% 52% 45% 55%;
+        opacity: 0.7;
+      }
+
+      .scribble-x::before,
+      .scribble-x::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 80%;
+        height: 3px;
+        background-color: #64748b;
+        transform-origin: center;
+      }
+
+      .scribble-x::before {
+        transform: translate(-50%, -50%) rotate(42deg);
+      }
+
+      .scribble-x::after {
+        transform: translate(-50%, -50%) rotate(-48deg);
       }
     </style>
   </head>

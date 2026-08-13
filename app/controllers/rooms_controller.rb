@@ -1,26 +1,33 @@
 class RoomsController < ApplicationController
   def create
     room = Room.create!
-
-    session[:room_id] = room.id
-    session[:seat] = 1
-
-    room.update!(host_joined: true)
-
-    redirect_to room_path(room)
+    redirect_to room_path(room), status: :see_other
   end
+
+
 
   def show
-    @room = Room.find(params[:id])
+    #Rails.logger.debug "SHOW ACTION HIT"
+    @room = Room.find_by!(code: params[:code])
 
-    return if session[:seat].present?
-
-    if @room.waiting? && @room.host_joined?
-      session[:seat] = 2
-      @room.update!(status: :playing)
-    else
-      redirect_to root_path
+    # 勝者がいる場合は結果表示
+    if @room.multiplayer_games.last&.winner.present?
+      @game = @room.multiplayer_games.last
+      return
     end
-  end
+    Rails.logger.debug "JOIN HIT"
+    joined = @room.join!(session)
 
+    unless joined
+      redirect_to root_path, alert: "このルームは満員です"
+      return
+    end
+
+    if @room.playing?
+      redirect_to multiplayer_game_path(@room.multiplayer_games.last)
+      return
+    end
+
+    @game = @room.multiplayer_games.last
+  end
 end

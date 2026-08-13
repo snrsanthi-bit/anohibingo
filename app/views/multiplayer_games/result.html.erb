@@ -1,0 +1,68 @@
+<main class="relative flex min-h-screen w-full flex-col paper-texture overflow-x-hidden p-6 mx-auto max-w-4xl md:py-12">
+
+  <% player = @player %>
+  <% opponent = player == "player1" ? "player2" : "player1" %>
+
+  <!-- タイトル -->
+  <div class="relative text-center mb-10">
+    <h1 class="text-primary text-5xl font-black tracking-tight">
+      <% if @game.winner == player %>
+        あなたの勝ち！
+      <% elsif @game.winner == "draw" %>
+        引き分け！
+      <% else %>
+        あなたの負け！
+      <% end %>
+    </h1>
+  </div>
+
+  <!-- 盤面2枚 -->
+  <div class="flex flex-col md:flex-row gap-10 justify-center mb-12">
+
+    <!-- 自分 -->
+    <div class="flex-1">
+      <h2 class="text-center font-bold mb-4">あなた</h2>
+
+      <div class="grid grid-cols-5 gap-2">
+        <% @game.board_for(player).each do |row| %>
+          <% row.each do |cell| %>
+            <div class="aspect-square bg-primary/5 rounded border flex items-center justify-center font-bold">
+              <%= "%02d" % cell %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 相手 -->
+    <div class="flex-1">
+      <h2 class="text-center font-bold mb-4">相手</h2>
+
+      <div class="grid grid-cols-5 gap-2">
+        <% @game.board_for(opponent).each do |row| %>
+          <% row.each do |cell| %>
+            <div class="aspect-square bg-gray-100 rounded border flex items-center justify-center font-bold">
+              <%= "%02d" % cell %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ボタン -->
+  <div class="flex flex-col gap-4 mt-auto">
+
+    <%= button_to "同じルームで再戦",
+          rematch_multiplayer_game_path(@game),
+          method: :post,
+          form_class: "w-full", class: "reset-btn w-full" %>
+
+    <%= link_to "ホームへ戻る",
+          root_path,
+          class: "bg-primary/10 text-primary font-semibold py-4 rounded-full text-center" %>
+
+  </div>
+
+</main>

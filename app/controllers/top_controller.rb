@@ -5,6 +5,6 @@ class TopController < ApplicationController
   def how_to_play
   end
 
-  
+
 
 end

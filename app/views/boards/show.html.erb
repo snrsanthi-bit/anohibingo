@@ -1,3 +1,4 @@
+<div class="paper-texture p-6 shadow-md mx-auto max-w-xl">
 <div class="turn-wrapper">
   <div class="turn-box <%= @game.current_turn %>">
     <% if @game.current_turn == "player" %>
@@ -28,43 +29,6 @@
           <%= number %>
         <% end %>
       <% end %>
-
     <% end %>
   <% end %>
 </div>
-
-<div class="center">
-  <%= button_to "もう一度遊ぶ", reset_path, method: :post, class: "reset-btn" %>
-</div>
-
-<% if @game.winner == "draw" %>
-  <h2>DRAW!</h2>
-<% elsif @game.winner %>
-  <h2><%= @game.winner.upcase %> WIN!</h2>
-<% end %>
-
-<h2>相手の盤面（デバッグ表示）</h2>
-
-<% @game.opponent_board.each do |row| %>
-  <div>
-    <% row.each do |number| %>
-
-      <% if @game.opponent_marks.include?(number) %>
-        <span style="margin-right: 10px; color:blue;">
-          <%= number %>
-        </span>
-
-      <% elsif @game.opponent_obstacles.include?(number) %>
-        <span style="margin-right: 10px; color: red;">
-          <%= number %>
-        </span>
-
-      <% else %>
-        <span style="margin-right: 10px;">
-          <%= number %>
-        </span>
-      <% end %>
-
-    <% end %>
-  </div>
-<% end %>

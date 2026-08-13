@@ -9,7 +9,15 @@ Rails.application.routes.draw do
   post "reset", to: "boards#reset"
   get "result", to: "boards#result"
 
-  resources :rooms, only: [:create, :show]
+  resources :rooms, param: :code, only: [:create, :show]
+  resources :multiplayer_games, only: [:show] do
+    member do
+      post :declare
+      get :result
+      post :rematch
+    end
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

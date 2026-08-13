@@ -1,14 +1,28 @@
 <main class="relative flex h-auto min-h-screen w-full flex-col paper-texture overflow-x-hidden p-6 mx-auto max-w-xl md:py-12">
 
   <!-- タイトル -->
-  <div class="relative text-center mb-8">
-    <h1 class="text-primary text-6xl font-black leading-tight tracking-tighter">
+<div class="relative text-center mb-8">
+  <h1 class="text-primary text-6xl font-black leading-tight tracking-tighter">
+    
+    <% if @game.winner == "player" %>
       あなたの勝ち！
-      <span class="block text-xl font-bold text-gold mt-2 tracking-widest uppercase">
-        CONGRATULATIONS!
+
+
+    <% elsif @game.winner == "opponent" %>
+      あなたの負け！
+      <span class="block text-xl font-bold text-red-500 mt-2 tracking-widest uppercase">
+        YOU LOSE...
       </span>
-    </h1>
-  </div>
+
+    <% elsif @game.winner == "draw" %>
+      引き分け！
+      <span class="block text-xl font-bold text-gray-500 mt-2 tracking-widest uppercase">
+        DRAW
+      </span>
+    <% end %>
+
+  </h1>
+</div>
 
   <!-- ビンゴボード（仮固定） -->
   <div class="bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-sm border-2 border-primary/10 mb-10">
@@ -28,8 +42,7 @@
   <!-- ボタン -->
   <div class="flex flex-col gap-4 mt-auto">
 
-    <%= link_to "もう一度遊ぶ", solo_path,
-          class: "bg-primary text-white font-bold py-5 rounded-full shadow-lg text-center" %>
+    <%= button_to "もう一度遊ぶ", reset_path, method: :post, form_class: "w-full", class: "reset-btn w-full" %>
 
     <%= link_to "ホームへ戻る", root_path,
           class: "bg-primary/10 text-primary font-semibold py-4 rounded-full text-center" %>

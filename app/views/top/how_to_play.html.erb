@@ -1,63 +1,4 @@
-<!DOCTYPE html>
 
-<html lang="ja"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#1152d4",
-                        "background-light": "#f6f6f8",
-                        "background-dark": "#101622",
-                    },
-                    fontFamily: {
-                        "display": ["Spline Sans", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "1rem",
-                        "lg": "2rem",
-                        "xl": "3rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
-<style>
-        .hand-drawn-border {
-            border: 3px solid #111318;
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-        }
-        .hand-drawn-bg {
-            background-color: #ffffff;
-            background-image: radial-gradient(#d1d5db 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
-        }
-        .sketch-line {
-            height: 3px;
-            background: #111318;
-            border-radius: 50%;
-            transform: rotate(-1deg);
-        }
-        .marker-highlight {
-            background: linear-gradient(120deg, rgba(17, 82, 212, 0.2) 0%, rgba(17, 82, 212, 0.2) 100%);
-            padding: 0 4px;
-            border-radius: 4px;
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-</head>
 <body class="bg-background-light dark:bg-background-dark font-display text-[#111318]">
 <div class="relative flex min-h-screen w-full flex-col items-center justify-center p-4 md:p-8 hand-drawn-bg">
 <!-- Header Section -->
@@ -177,4 +118,4 @@
 </div>
 <!-- Navigation Bar Mock -->
 </div>
-</body></html>
+</body>

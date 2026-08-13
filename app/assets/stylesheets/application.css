@@ -117,3 +117,23 @@ body {
   font-weight: bold;
   font-size: 18px;
 }
+
+.cell {
+  width: 70px;
+  height: 70px;
+  border-radius: 9999px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.turn-box {
+  background: #2563eb;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  font-weight: bold;
+  display: inline-block;
+}
