@@ -25,9 +25,14 @@
 
       <div class="grid grid-cols-5 gap-2">
         <% @game.board_for(player).each do |row| %>
-          <% row.each do |cell| %>
-            <div class="aspect-square bg-primary/5 rounded border flex items-center justify-center font-bold">
-              <%= "%02d" % cell %>
+          <% row.each do |number| %>
+            <div class="relative aspect-square bg-primary/5 rounded border border-primary/10 flex items-center justify-center font-bold">
+              <%= "%02d" % number %>
+              <% if @game.marks_for(player).include?(number) %>
+                <div class="scribble-circle"></div>
+              <% elsif @game.obstacles_for(player).include?(number) %>
+                <div class="scribble-x"></div>
+              <% end %>
             </div>
           <% end %>
         <% end %>
@@ -40,9 +45,14 @@
 
       <div class="grid grid-cols-5 gap-2">
         <% @game.board_for(opponent).each do |row| %>
-          <% row.each do |cell| %>
-            <div class="aspect-square bg-gray-100 rounded border flex items-center justify-center font-bold">
-              <%= "%02d" % cell %>
+          <% row.each do |number| %>
+            <div class="relative aspect-square bg-gray-100 rounded border border-gray-300 flex items-center justify-center font-bold">
+              <%= "%02d" % number %>
+              <% if @game.marks_for(opponent).include?(number) %>
+                <div class="scribble-circle"></div>
+              <% elsif @game.obstacles_for(opponent).include?(number) %>
+                <div class="scribble-x"></div>
+              <% end %>
             </div>
           <% end %>
         <% end %>
