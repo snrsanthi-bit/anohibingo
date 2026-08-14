@@ -1,34 +1,79 @@
-<div class="paper-texture p-6 shadow-md mx-auto max-w-xl">
-<div class="turn-wrapper">
-  <div class="turn-box <%= @game.current_turn %>">
-    <% if @game.current_turn == "player" %>
-      あなたの番
-    <% else %>
-      相手の番
-    <% end %>
+<main class="relative min-h-screen w-full overflow-hidden p-6">
+
+  <!-- Background Doodles -->
+  <div class="absolute top-10 right-10 opacity-20 rotate-12">
+    <span class="material-symbols-outlined text-6xl text-primary">
+      grid_4x4
+    </span>
   </div>
-</div>
-<div class="board">
-  <% @game.player_board.each do |row| %>
-    <% row.each do |number| %>
 
-      <% if @game.player_marks.include?(number) %>
-        <div class="cell player-mark">
-          <%= number %>
+  <div class="absolute bottom-20 left-10 opacity-20 -rotate-12">
+    <span class="material-symbols-outlined text-7xl text-primary">
+      edit
+    </span>
+  </div>
+
+  <div class="absolute top-1/4 left-5 opacity-10">
+    <span class="material-symbols-outlined text-4xl text-primary">
+      auto_awesome
+    </span>
+  </div>
+
+  <div class="absolute top-20 left-20 opacity-20 rotate-45">
+    <span class="material-symbols-outlined text-8xl text-primary">
+      gesture
+    </span>
+  </div>
+
+  <div class="absolute bottom-10 right-20 opacity-20 -rotate-12">
+    <span class="material-symbols-outlined text-9xl text-primary">
+      draw
+    </span>
+  </div>
+
+  <!-- Game -->
+  <div class="relative z-10 mx-auto max-w-xl">
+
+    <div class="paper-texture p-6 shadow-md">
+
+      <div class="turn-wrapper">
+        <div class="turn-box <%= @game.current_turn %>">
+          <% if @game.current_turn == "player" %>
+            あなたの番
+          <% else %>
+            相手の番
+          <% end %>
         </div>
+      </div>
 
-      <% elsif @game.player_obstacles.include?(number) %>
-        <div class="cell opponent-mark">
-          <%= number %>
-        </div>
+      <div class="board">
+        <% @game.player_board.each do |row| %>
+          <% row.each do |number| %>
 
-      <% else %>
-        <%= button_to mark_path(number: number),
-                      method: :post,
-                      class: "cell cell-button" do %>
-          <%= number %>
+            <% if @game.player_marks.include?(number) %>
+              <div class="cell player-mark">
+                <%= number %>
+              </div>
+
+            <% elsif @game.player_obstacles.include?(number) %>
+              <div class="cell opponent-mark">
+                <%= number %>
+              </div>
+
+            <% else %>
+              <%= button_to mark_path(number: number),
+                            method: :post,
+                            class: "cell cell-button" do %>
+                <%= number %>
+              <% end %>
+            <% end %>
+
+          <% end %>
         <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</main>

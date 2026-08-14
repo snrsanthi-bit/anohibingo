@@ -1,4 +1,25 @@
-    <!-- ターン表示 -->
+<main class="relative min-h-screen w-full overflow-hidden p-6">
+
+  <!-- Background Doodles -->
+  <div class="absolute top-10 right-10 opacity-20 rotate-12">
+    <span class="material-symbols-outlined text-6xl text-primary">
+      grid_4x4
+    </span>
+  </div>
+
+  <div class="absolute bottom-20 left-10 opacity-20 -rotate-12">
+    <span class="material-symbols-outlined text-7xl text-primary">
+      edit
+    </span>
+  </div>
+
+  <div class="absolute top-1/4 left-5 opacity-10">
+    <span class="material-symbols-outlined text-4xl text-primary">
+      auto_awesome
+    </span>
+  </div>
+
+<!-- ターン表示 -->
   <div class="turn-wrapper">
     <div class="turn-box <%= @game.current_turn %>">
       <% if @game.current_turn == @player %>
@@ -60,4 +81,6 @@
   <script>
     window.location.href = "<%= result_multiplayer_game_path(@game) %>";
   </script>
+
+</main>  
 <% end %>
