@@ -41,14 +41,23 @@ class MultiplayerGamesController < ApplicationController
     old_game = MultiplayerGame.find(params[:id])
     room = old_game.room
 
-    room.multiplayer_games.create!(
-      player1_board: Board.generate,
-      player2_board: Board.generate,
-      declared_numbers: [],
-      current_turn: ["player1", "player2"].sample,
-      winner: nil
-    )
+      if room.player1_token == session[:room_token]
+        room.update(player1_rematch: true)
+      else room.player2_token == session[:room_token]
+        room.update(player2_rematch: true)
+      end
+
+    if room.player1_rematch && room.player2_rematch?
+
+      room.multiplayer_games.create!(
+        player1_board: Board.generate,
+        player2_board: Board.generate,
+        declared_numbers: [],
+        current_turn: ["player1", "player2"].sample,
+        winner: nil
+      )
     
-    redirect_to room_path(room)
+      redirect_to room_path(room)
+    end
   end
 end

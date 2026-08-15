@@ -74,5 +74,20 @@
           class: "bg-primary/10 text-primary font-semibold py-4 rounded-full text-center" %>
 
   </div>
+  <script>
+  const roomId = <%= @game.room.id %>
+
+    setInterval(() => {
+      fetch(`/rooms/${roomId}/rematch_status`)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+
+          if (data.player1_rematch && data.player2_rematch) {
+            window.location.href = `/multiplayer_games/${data.game_id}`;
+          }
+        })
+          }, 1000)
+  </script>
 
 </main>
