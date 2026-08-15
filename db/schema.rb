@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_02_26_155306) do
+ActiveRecord::Schema[7.0].define(version: 2026_08_14_125755) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_26_155306) do
     t.datetime "updated_at", null: false
     t.string "player1_token"
     t.string "player2_token"
+    t.boolean "player1_rematch", default: false, null: false
+    t.boolean "player2_rematch", default: false, null: false
     t.index ["code"], name: "index_rooms_on_code", unique: true
   end
 

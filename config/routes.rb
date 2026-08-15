@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post "mark", to: "boards#mark", as: :mark
   post "reset", to: "boards#reset"
   get "result", to: "boards#result"
+  get "rooms/:id/rematch_status", to: "rooms#rematch_status"
 
   resources :rooms, param: :code, only: [:create, :show]
   resources :multiplayer_games, only: [:show] do

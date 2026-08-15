@@ -30,4 +30,13 @@ class RoomsController < ApplicationController
 
     @game = @room.multiplayer_games.last
   end
+
+  def rematch_status
+    room = Room.find(params[:id])
+    render json: {
+      player1_rematch: room.player1_rematch,
+      player2_rematch: room.player2_rematch,
+      game_id: room.multiplayer_games.order(created_at: :desc).first&.id
+    }
+  end
 end
