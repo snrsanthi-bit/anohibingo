@@ -4,10 +4,7 @@ class RoomsController < ApplicationController
     redirect_to room_path(room), status: :see_other
   end
 
-
-
   def show
-    #Rails.logger.debug "SHOW ACTION HIT"
     @room = Room.find_by!(code: params[:code])
 
     # 勝者がいる場合は結果表示
@@ -15,29 +12,30 @@ class RoomsController < ApplicationController
       @game = @room.multiplayer_games.last
       return
     end
-    Rails.logger.info "JOIN HIT"
-
-    Rails.logger.info "ROOM #{@room.code}: p1=#{@room.player1_token.present?}, p2=#{@room.player2_token.present?}, session_token=#{session[:room_token].present?}"
-
-    joined = @room.join!(session)
-
-    Rails.logger.info "JOIN RESULT: #{joined.inspect}"
-    
-
-    unless joined
-      Rails.logger.info "JOIN FAILED: room=#{@room.code}"
-    end
-
-    if @room.playing?
-      redirect_to multiplayer_game_path(@room.multiplayer_games.last)
-      return
-    end
 
     @game = @room.multiplayer_games.last
   end
 
+  def join
+    @room = Room.find_by!(code: params[:code])
+
+    joined = @room.join!(session)
+
+    unless joined
+      redirect_to root_path, alert: "このルームは満員です"
+      return
+    end
+
+    if @room.playing?
+      redirect_to multiplayer_game_path(@room.multiplayer_games.last)
+    else
+      redirect_to room_path(@room)
+    end
+  end
+
   def rematch_status
     room = Room.find(params[:id])
+
     render json: {
       player1_rematch: room.player1_rematch,
       player2_rematch: room.player2_rematch,

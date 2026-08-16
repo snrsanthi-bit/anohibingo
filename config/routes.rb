@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get "result", to: "boards#result"
   get "rooms/:id/rematch_status", to: "rooms#rematch_status"
 
-  resources :rooms, param: :code, only: [:create, :show]
+  resources :rooms, param: :code, only: [:create, :show] do
+    post :join, on: :member
+  end
   resources :multiplayer_games, only: [:show] do
     member do
       post :declare

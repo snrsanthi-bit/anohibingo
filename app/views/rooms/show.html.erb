@@ -186,6 +186,11 @@
 </svg>
 <span class="font-bold text-xl font-marker">リンクをコピー</span>
 </button>
+
+<%= button_to "参加する",
+              join_room_path(@room),
+              method: :post,
+              class: "border-drawn bg-blue-50 px-8 py-3 mt-4" %>
 <!-- Toast Notification (Hidden by default) -->
 <div class="mt-6 px-6 py-3 bg-green-100 text-green-900 border-drawn-sm opacity-0 transition-opacity duration-300 pointer-events-none font-marker text-lg transform rotate-2" data-purpose="toast-message" id="toast">
       コピーしました！
@@ -205,6 +210,6 @@
         console.error('Failed to copy text: ', err);
       });
     }
-    setTimeout(() => location.reload(), 2000);
+    setTimeout(() => location.reload(), 100000);
   </script>
 </body></html>
