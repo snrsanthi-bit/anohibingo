@@ -15,13 +15,13 @@ class RoomsController < ApplicationController
       @game = @room.multiplayer_games.last
       return
     end
-    Rails.logger.debug "JOIN HIT"
+    Rails.logger.info "JOIN HIT"
 
-    Rails.logger.debug "ROOM #{@room.code}: p1=#{@room.player1_token.present?}, p2=#{@room.player2_token.present?}, session_token=#{session[:room_token].present?}"
+    Rails.logger.info "ROOM #{@room.code}: p1=#{@room.player1_token.present?}, p2=#{@room.player2_token.present?}, session_token=#{session[:room_token].present?}"
 
     joined = @room.join!(session)
 
-    Rails.logger.debug "JOIN RESULT: #{joined.inspect}"
+    Rails.logger.info "JOIN RESULT: #{joined.inspect}"
     
 
     unless joined
