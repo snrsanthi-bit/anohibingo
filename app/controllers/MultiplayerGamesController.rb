@@ -5,12 +5,13 @@ class MultiplayerGamesController < ApplicationController
     @room = @game.room
     @player = current_player(@room)
 
-
+    Rails.logger.info "GAME SHOW: game=#{@game.id} player=#{@player.inspect} session_token=#{session[:room_token].inspect}"
   end
   
   def declare
     @game = MultiplayerGame.find(params[:id])
     player = current_player(@game.room)
+    Rails.logger.info "GAME SHOW: game=#{@game.id} player=#{@player.inspect} session_token=#{session[:room_token].inspect}"
 
     unless player
       redirect_to root_path, alert: "不正なアクセスです"
@@ -42,6 +43,7 @@ class MultiplayerGamesController < ApplicationController
 
     
     @player = current_player(@room)
+    
   end
 
   def rematch
