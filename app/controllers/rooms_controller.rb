@@ -36,6 +36,7 @@ class RoomsController < ApplicationController
     render json: {
       player1_rematch: room.player1_rematch,
       player2_rematch: room.player2_rematch,
+      game_started: room.playing?,
       game_id: room.multiplayer_games.order(created_at: :desc).first&.id
     }
   end
