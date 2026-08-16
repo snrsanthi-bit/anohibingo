@@ -16,7 +16,13 @@ class RoomsController < ApplicationController
       return
     end
     Rails.logger.debug "JOIN HIT"
+
+    Rails.logger.debug "ROOM #{@room.code}: p1=#{@room.player1_token.present?}, p2=#{@room.player2_token.present?}, session_token=#{session[:room_token].present?}"
+
     joined = @room.join!(session)
+
+    Rails.logger.debug "JOIN RESULT: #{joined.inspect}"
+    
 
     unless joined
       redirect_to root_path, alert: "このルームは満員です"
