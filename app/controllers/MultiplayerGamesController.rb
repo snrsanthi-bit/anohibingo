@@ -4,6 +4,8 @@ class MultiplayerGamesController < ApplicationController
     @game = MultiplayerGame.find(params[:id])
     @room = @game.room
     @player = current_player(@room)
+
+
   end
   
   def declare
@@ -23,11 +25,16 @@ class MultiplayerGamesController < ApplicationController
     else
       redirect_to room_path(@game.room)
     end
+
   end
 
   def result
+  
+    
     @game = MultiplayerGame.find(params[:id])
     @room = @game.room
+
+    @room.update!(player1_rematch: false, player2_rematch: false)
 
     unless session[:room_token].present?
       @room.join!(session)
@@ -41,9 +48,11 @@ class MultiplayerGamesController < ApplicationController
     old_game = MultiplayerGame.find(params[:id])
     room = old_game.room
 
+
+
       if room.player1_token == session[:room_token]
         room.update(player1_rematch: true)
-      else room.player2_token == session[:room_token]
+      elsif room.player2_token == session[:room_token]
         room.update(player2_rematch: true)
       end
 
@@ -56,8 +65,10 @@ class MultiplayerGamesController < ApplicationController
         current_turn: ["player1", "player2"].sample,
         winner: nil
       )
+
     
       redirect_to room_path(room)
+
     end
   end
 end
