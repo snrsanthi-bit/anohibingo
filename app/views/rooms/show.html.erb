@@ -1,26 +1,210 @@
-<p>ルームコード: <%= @room.code %></p>
+<!DOCTYPE html>
 
-<% player = current_player(@room) %>
-
-<% if @room.waiting? %>
-  <div class="text-center space-y-4">
-    <p>対戦相手を待っています...</p>
-
-    <div class="bg-gray-100 p-3 rounded">
-      <%= room_url(@room.code) %>
-    </div>
-
-    <button onclick="copyLink()" class="btn">
-      リンクをコピー
-    </button>
-  </div>
-
-  <script>
-    function copyLink() {
-      navigator.clipboard.writeText("<%= room_url(@room.code) %>");
-      alert("リンクをコピーしました！");
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Waiting for Opponent - Ano Hi Bingo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&amp;family=Yomogi&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="custom-fonts">
+    body {
+      font-family: 'Yomogi', cursive;
+    }
+    .font-marker {
+      font-family: 'Permanent Marker', 'Yomogi', cursive;
+    }
+  </style>
+<style data-purpose="background-texture">
+    /* Graph paper texture */
+    .bg-graph-paper {
+      background-color: #fafafa;
+      background-image: 
+        linear-gradient(#e5e7eb 1px, transparent 1px),
+        linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    
+    /* Hand-drawn style borders */
+    .border-drawn {
+      border: 3px solid #333;
+      border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+      box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    }
+    
+    .border-drawn-sm {
+      border: 2px solid #333;
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      box-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+    }
+    
+    .border-drawn-slipped {
+      border-top: 3px solid #333;
+      border-right: 2px solid #333;
+      border-bottom: 4px solid #333;
+      border-left: 2px solid #333;
+      border-radius: 4px 10px 5px 2px / 2px 5px 10px 3px;
+      transform: rotate(-1deg);
+    }
+    
+    /* Doodle Animations */
+    @keyframes scribble-circle {
+      0% { stroke-dashoffset: 150; transform: rotate(0deg); }
+      50% { stroke-dashoffset: 0; transform: rotate(180deg); }
+      100% { stroke-dashoffset: -150; transform: rotate(360deg); }
+    }
+    .animate-scribble {
+      stroke-dasharray: 150;
+      animation: scribble-circle 1.2s infinite linear;
+    }
+    .animate-scribble-fast {
+      stroke-dasharray: 120;
+      animation: scribble-circle 0.8s infinite linear reverse;
+    }
+    .animate-scribble-slow {
+      stroke-dasharray: 180;
+      animation: scribble-circle 1.8s infinite linear;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
     }
 
-    setTimeout(() => location.reload(), 3000);
+    @keyframes pulse-doodle {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    .animate-pulse-doodle {
+      animation: pulse-doodle 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-graph-paper min-h-screen flex flex-col text-gray-800 relative overflow-hidden">
+<!-- Background Smudges/Ink Blobs -->
+<div class="absolute top-10 left-10 opacity-20 pointer-events-none w-16 h-16 bg-gray-600 rounded-full blur-xl mix-blend-multiply"></div>
+<div class="absolute bottom-20 right-10 opacity-10 pointer-events-none w-24 h-24 bg-gray-500 rounded-full blur-2xl mix-blend-multiply"></div>
+<div class="absolute top-1/2 right-4 opacity-15 pointer-events-none w-12 h-12 bg-gray-700 rounded-full blur-lg mix-blend-multiply"></div>
+<!-- Background Doodles & Scribbles -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+<!-- Incomplete Bingo Board (Bottom Left) -->
+<svg class="absolute bottom-10 left-4 w-40 h-40 text-gray-400 opacity-40 transform -rotate-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 100 100">
+<line stroke-dasharray="4 2" x1="33" x2="33" y1="5" y2="95"></line>
+<line stroke-dasharray="3 3" x1="66" x2="66" y1="5" y2="95"></line>
+<line stroke-dasharray="5 2" x1="5" x2="95" y1="33" y2="33"></line>
+<line stroke-dasharray="4 4" x1="5" x2="95" y1="66" y2="66"></line>
+<text fill="currentColor" font-family="'Permanent Marker', cursive" font-size="14" stroke="none" x="15" y="25">7</text>
+<text fill="currentColor" font-family="'Permanent Marker', cursive" font-size="14" stroke="none" x="45" y="25">12</text>
+<text fill="currentColor" font-family="'Permanent Marker', cursive" font-size="14" stroke="none" x="75" y="55">B</text>
+<text fill="currentColor" font-family="'Permanent Marker', cursive" font-size="14" stroke="none" x="15" y="85">42</text>
+<circle class="opacity-50" cx="18" cy="20" fill="none" r="10" stroke="red" stroke-width="1.5"></circle>
+<path class="opacity-50" d="M40 15 L55 30 M55 15 L40 30" stroke="blue" stroke-width="1.5"></path>
+</svg>
+<!-- Random Numbers and Marks -->
+<div class="absolute top-32 right-20 text-gray-400 font-marker text-2xl transform rotate-12 opacity-30">24</div>
+<div class="absolute top-1/4 left-1/4 text-gray-400 font-marker text-xl transform -rotate-12 opacity-30">68</div>
+<div class="absolute bottom-1/3 right-1/4 text-gray-400 font-marker text-3xl transform rotate-6 opacity-30">FREE</div>
+<svg class="absolute top-20 right-1/3 w-10 h-10 text-red-400 opacity-40 transform rotate-12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10" stroke-dasharray="5 2"></circle>
+</svg>
+<svg class="absolute bottom-1/4 left-1/3 w-8 h-8 text-blue-400 opacity-40 transform -rotate-12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M4 4 L20 20 M20 4 L4 20"></path>
+</svg>
+<!-- Tiny doodle faces/illustrations -->
+<svg class="absolute top-40 left-10 w-8 h-8 text-gray-500 opacity-30 transform -rotate-12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<path d="M8 9h.01M16 9h.01M8 15 Q12 18 16 15"></path>
+</svg>
+</div>
+<!-- BEGIN: HeaderSection -->
+<header class="p-4 md:p-6 w-full flex justify-between items-start relative z-10">
+</header>
+<!-- END: HeaderSection -->
+<!-- BEGIN: MainContent -->
+<main class="flex-grow flex flex-col items-center justify-center p-4 relative z-10">
+<!-- Title Area with Doodles -->
+<div class="relative mb-12 flex flex-col items-center w-full max-w-3xl">
+<!-- Paper Plane Doodle -->
+<svg class="absolute -top-12 -left-8 w-10 h-10 text-gray-600 animate-float" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" style="animation-delay: 0.5s;" viewbox="0 0 24 24">
+<path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
+<path class="text-gray-400" d="M11 13C8 18 3 20 3 20" stroke-dasharray="2 2"></path>
+</svg>
+<!-- Star Doodles (Sparkles) -->
+<svg class="absolute -top-6 -right-4 w-8 h-8 text-yellow-500 animate-pulse-doodle" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="animation-delay: 0.1s;" viewbox="0 0 24 24">
+<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+<svg class="absolute top-10 -left-12 w-6 h-6 text-yellow-400 animate-pulse-doodle" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="animation-delay: 0.8s;" viewbox="0 0 24 24">
+<path d="M12 2 L14 9 L21 10 L15 14 L17 21 L12 17 L7 21 L9 14 L3 10 L10 9 Z"></path>
+</svg>
+<!-- Spiral Doodle -->
+<svg class="absolute bottom-10 -right-12 w-10 h-10 text-blue-500 animate-float" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="animation-delay: 0.2s;" viewbox="0 0 24 24">
+<path d="M21 12a9 9 0 1 1-9-9c4 0 7 2 7 6a4 4 0 1 1-4-4"></path>
+</svg>
+<!-- Emphasis Lines (Concentration lines) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" viewbox="0 0 400 100">
+<path d="M 20,20 L 80,40 M 380,20 L 320,40 M 50,80 L 100,60 M 350,80 L 300,60 M 200,10 L 200,30" stroke-dasharray="4 4"></path>
+</svg>
+<h1 class="text-3xl md:text-5xl font-bold text-gray-800 font-marker text-center px-8 py-4 relative z-10" data-purpose="waiting-title">
+        対戦相手を待っています...
+      </h1>
+<!-- Dynamic Scribble Loading Circle -->
+<div class="mt-8 flex flex-col items-center gap-3 relative">
+<svg class="w-16 h-16 text-gray-800" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 40 40">
+<circle class="animate-scribble" cx="20" cy="20" r="14" stroke-dashoffset="10"></circle>
+<circle class="animate-scribble-fast text-blue-600" cx="21" cy="19" r="12" stroke-dashoffset="30"></circle>
+<circle class="animate-scribble-slow text-red-500" cx="19" cy="21" r="16" stroke-dashoffset="50"></circle>
+<path d="M20 20 L20 20" stroke-linecap="round" stroke-width="3"></path> <!-- Center dot -->
+</svg>
+<span class="font-marker text-lg text-gray-700 bg-white px-2 py-1 transform rotate-2 border border-gray-300 rounded shadow-sm">ぐるぐる待機中...</span>
+</div>
+</div>
+<!-- URL Container -->
+<div class="w-full max-w-2xl border-drawn-slipped bg-white p-6 mb-8 flex flex-col items-center justify-center relative shadow-md mt-4" data-purpose="url-container">
+<!-- Share Note and Pointing Finger -->
+<div class="absolute -top-6 left-4 flex items-end gap-1 transform -rotate-6 z-10">
+<div class="bg-yellow-200 border border-gray-600 text-sm px-3 py-1 font-marker shadow-sm border-drawn-sm">Share this!</div>
+<svg class="w-8 h-8 text-gray-700 mb-1 animate-bounce" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24">
+<path d="M18 11v5a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-5"></path>
+<path d="M12 2v14"></path>
+<path d="M8 6l4-4 4 4"></path>
+</svg>
+</div>
+<p class="text-sm md:text-base lg:text-lg text-gray-700 break-all text-center selection:bg-blue-200 font-marker z-10 relative" id="room-url">
+      <%= room_url(@room.code) %>
+      </p>
+</div>
+<!-- Copy Button -->
+<button class="border-drawn bg-yellow-50 hover:bg-yellow-100 px-8 py-3 flex items-center gap-3 text-gray-900 transition-transform hover:scale-110 active:scale-90 shadow-sm transform rotate-1 relative" data-purpose="copy-button" onclick="copyUrl()">
+<!-- Highlight scribble behind button -->
+<div class="absolute inset-0 bg-yellow-300 opacity-20 transform -rotate-2 scale-110 -z-10 rounded-full blur-sm"></div>
+<svg class="lucide lucide-copy" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect>
+<path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+</svg>
+<span class="font-bold text-xl font-marker">リンクをコピー</span>
+</button>
+<!-- Toast Notification (Hidden by default) -->
+<div class="mt-6 px-6 py-3 bg-green-100 text-green-900 border-drawn-sm opacity-0 transition-opacity duration-300 pointer-events-none font-marker text-lg transform rotate-2" data-purpose="toast-message" id="toast">
+      コピーしました！
+    </div>
+</main>
+<!-- END: MainContent -->
+<script data-purpose="copy-functionality">
+    function copyUrl() {
+      const urlText = document.getElementById('room-url').innerText;
+      navigator.clipboard.writeText(urlText).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('opacity-0');
+        setTimeout(() => {
+          toast.classList.add('opacity-0');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+    setTimeout(() => location.reload(), 2000);
   </script>
- <% end %>
+</body></html>

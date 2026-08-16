@@ -19,7 +19,22 @@
     </span>
   </div>
 
+    <div class="absolute top-20 left-20 opacity-20 rotate-45">
+    <span class="material-symbols-outlined text-8xl text-primary">
+      gesture
+    </span>
+  </div>
+
+  <div class="absolute bottom-10 right-20 opacity-20 -rotate-12">
+    <span class="material-symbols-outlined text-9xl text-primary">
+      draw
+    </span>
+  </div>
+
 <!-- ターン表示 -->
+  <div class="relative z-10 mx-auto max-w-xl">
+
+    <div class="paper-texture p-6 shadow-md">
   <div class="turn-wrapper">
     <div class="turn-box <%= @game.current_turn %>">
       <% if @game.current_turn == @player %>
@@ -60,15 +75,6 @@
     </div>
   </div>
 </div>
-
-  <!-- 勝敗表示 -->
-  <% if @game.winner == "draw" %>
-    <h2>DRAW!</h2>
-  <% elsif @game.winner.present? %>
-    <h2>
-      <%= @game.winner == @player ? "YOU WIN!" : "YOU LOSE!" %>
-    </h2>
-  <% end %>
 
   <% unless @game.winner.present? %>
     <script>
