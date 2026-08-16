@@ -25,8 +25,7 @@ class RoomsController < ApplicationController
     
 
     unless joined
-      redirect_to root_path, alert: "このルームは満員です"
-      return
+      Rails.logger.info "JOIN FAILED: room=#{@room.code}"
     end
 
     if @room.playing?
