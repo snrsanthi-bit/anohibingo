@@ -195,6 +195,7 @@
   <%= button_to "参加準備OK",
         join_room_path(@room),
         method: :post,
+        data: { turbo: false },
         class: "border-drawn bg-white px-6 py-3 font-marker text-lg text-gray-900 shadow-sm" %>
 <% end %>
 <!-- Toast Notification (Hidden by default) -->
