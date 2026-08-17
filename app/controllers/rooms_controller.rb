@@ -1,7 +1,6 @@
 class RoomsController < ApplicationController
   def create
     room = Room.create!
-    room.join!(session)
     redirect_to room_path(room), status: :see_other
   end
 
