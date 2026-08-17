@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   def create
     room = Room.create!
+    room.join!(session)
     redirect_to room_path(room), status: :see_other
   end
 
@@ -10,6 +11,11 @@ class RoomsController < ApplicationController
     # 勝者がいる場合は結果表示
     if @room.multiplayer_games.last&.winner.present?
       @game = @room.multiplayer_games.last
+      return
+    end
+
+    if @room.playing?
+      redirect_to multiplayer_game_path(@room.multiplayer_games.last)
       return
     end
 
