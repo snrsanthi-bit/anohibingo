@@ -13,6 +13,11 @@ class RoomsController < ApplicationController
       return
     end
 
+    if @room.playing?
+      redirect_to multiplayer_game_path(@room.multiplayer_games.last)
+      return
+    end
+
     @game = @room.multiplayer_games.last
   end
 
@@ -20,6 +25,7 @@ class RoomsController < ApplicationController
     @room = Room.find_by!(code: params[:code])
 
     joined = @room.join!(session)
+    Rails.logger.info "JOIN: joined=#{joined} player=#{current_player(@room).inspect} playing=#{@room.playing?}"
 
     unless joined
       redirect_to root_path, alert: "このルームは満員です"

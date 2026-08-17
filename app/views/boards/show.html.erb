@@ -54,6 +54,7 @@
         <% row.each_with_index do |number, col_index| %>
 
           <% if @game.player_marks.include?(number) %>
+<<<<<<< HEAD
 
             <div class="relative w-full h-24 flex items-center justify-center border-ink/20
                         <%= 'border-r' unless col_index == 4 %>
@@ -96,12 +97,68 @@
               </span>
               <% end %>
 
+=======
+
+            <div class="relative w-full h-24 flex items-center justify-center border-ink/20
+                        <%= 'border-r' unless col_index == 4 %>
+                        <%= 'border-b' unless row_index == 4 %>
+                        bg-transparent p-0">
+
+              <span class="font-hand text-3xl">
+                <%= "%02d" % number %>
+              </span>
+
+              <div class="scribble-circle"></div>
+            </div>
+
+          <% elsif @game.player_obstacles.include?(number) %>
+
+            <div class="relative w-full h-24 flex items-center justify-center border-ink/20
+                        <%= 'border-r' unless col_index == 4 %>
+                        <%= 'border-b' unless row_index == 4 %>
+                        bg-transparent p-0">
+
+              <span class="font-hand text-3xl">
+                <%= "%02d" % number %>
+              </span>
+
+              <div class="scribble-x"></div>
+            </div>
+
+          <% else %>
+
+            <%= button_to mark_path(number: number),
+                          method: :post,
+                          form: { class: "contents" },
+                          class: "relative w-full h-24 flex items-center justify-center border-ink/20
+                                  #{'border-r' unless col_index == 4}
+                                  #{'border-b' unless row_index == 4}
+                                  bg-transparent p-0" do %>
+
+              <span class="font-hand text-3xl">
+                <%= "%02d" % number %>
+              </span>
+
+>>>>>>> origin/main
             <% end %>
 
           <% end %>
+
         <% end %>
+<<<<<<< HEAD
       </div>
 
+=======
+      <% end %>
+
+    </div>
+  </div>
+</div>
+<%= link_to root_path,
+            class: "block w-full mt-4 py-4 text-2xl font-black bg-primary text-white hand-drawn-border border-primary shadow-[4px_4px_0px_0px_rgba(17,82,212,0.3)] hover:translate-y-1 hover:shadow-none transition-all duration-75 text-center" do %>
+  もうやめる！！
+<% end %>
+>>>>>>> origin/main
 
     </div>
       <%=link_to root_path, class: "block w-full mt-4 py-4 text-2xl font-black bg-primary text-white hand-drawn-border border-primary shadow-[4px_4px_0px_0px_rgba(17,82,212,0.3)] hover:translate-y-1 hover:shadow-none transition-all duration-75 text-center" do %>

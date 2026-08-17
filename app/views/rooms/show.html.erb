@@ -187,10 +187,24 @@
 <span class="font-bold text-xl font-marker">リンクをコピー</span>
 </button>
 
+<<<<<<< HEAD
 <%= button_to "参加する",
               join_room_path(@room),
               method: :post,
               class: "border-drawn bg-white px-6 py-3 font-marker text-lg text-gray-900 shadow-sm" %>
+=======
+<% if current_player(@room).present? %>
+  <span class="font-marker text-lg text-gray-700">
+    対戦相手を待っています…
+  </span>
+<% else %>
+  <%= button_to "参加準備OK",
+        join_room_path(@room),
+        method: :post,
+        data: { turbo: false },
+        class: "border-drawn bg-white px-6 py-3 font-marker text-lg text-gray-900 shadow-sm" %>
+<% end %>
+>>>>>>> origin/main
 <!-- Toast Notification (Hidden by default) -->
 <div class="mt-6 px-6 py-3 bg-green-100 text-green-900 border-drawn-sm opacity-0 transition-opacity duration-300 pointer-events-none font-marker text-lg transform rotate-2" data-purpose="toast-message" id="toast">
       コピーしました！
@@ -210,6 +224,6 @@
         console.error('Failed to copy text: ', err);
       });
     }
-    setTimeout(() => location.reload(), 100000);
+    setTimeout(() => location.reload(), 3000);
   </script>
 </body></html>
