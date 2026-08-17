@@ -24,7 +24,7 @@ class MultiplayerGamesController < ApplicationController
     if @game.winner.present?
       redirect_to result_multiplayer_game_path(@game)
     else
-      redirect_to room_path(@game.room)
+      redirect_to multiplayer_game_path(@game.room)
     end
 
   end
@@ -60,7 +60,7 @@ class MultiplayerGamesController < ApplicationController
 
     if room.player1_rematch && room.player2_rematch?
 
-      room.multiplayer_games.create!(
+      new_game = room.multiplayer_games.create!(
         player1_board: Board.generate,
         player2_board: Board.generate,
         declared_numbers: [],
@@ -69,8 +69,7 @@ class MultiplayerGamesController < ApplicationController
       )
 
     
-      redirect_to room_path(room)
-
+      redirect_to multiplayer_game_path(new_game)
     end
   end
 end
