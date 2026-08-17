@@ -1,3 +1,14 @@
+<!-- Background Doodles -->
+<div class="absolute top-10 right-10 opacity-20 rotate-12">
+<span class="material-symbols-outlined text-6xl text-primary">grid_4x4</span>
+</div>
+<div class="absolute bottom-20 left-10 opacity-20 -rotate-12">
+<span class="material-symbols-outlined text-7xl text-primary">edit</span>
+</div>
+<div class="absolute top-1/4 left-5 opacity-10">
+<span class="material-symbols-outlined text-4xl text-primary">auto_awesome</span>
+</div>
+
 <main class="relative flex h-auto min-h-screen w-full flex-col paper-texture overflow-x-hidden p-6 mx-auto max-w-xl md:py-12">
 
   <!-- タイトル -->
@@ -27,15 +38,31 @@
   <!-- ビンゴボード（仮固定） -->
   <div class="bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-sm border-2 border-primary/10 mb-10">
 
-    <div class="grid grid-cols-5 gap-2">
-      <% @game.player_board.each_with_index do |row, i| %>
-        <% row.each do |cell| %>
-          <div class="aspect-square bg-primary/5 rounded border border-primary/10 flex items-center justify-center text-primary/30 font-bold">
-            <%= cell %>
-          </div>
+    <div class="grid grid-cols-5 gap-0">
+  <% @game.player_board.each_with_index do |row, row_index| %>
+    <% row.each_with_index do |number, col_index| %>
+
+      <div class="relative w-full aspect-square flex items-center justify-center border-ink/20
+                  <%= 'border-r' unless col_index == 4 %>
+                  <%= 'border-b' unless row_index == 4 %>
+                  bg-transparent">
+
+        <span class="font-hand text-3xl">
+          <%= "%02d" % number %>
+        </span>
+
+        <% if @game.player_marks.include?(number) %>
+          <div class="scribble-circle"></div>
+
+        <% elsif @game.player_obstacles.include?(number) %>
+          <div class="scribble-x"></div>
         <% end %>
-      <% end %>
-    </div>
+
+      </div>
+
+    <% end %>
+  <% end %>
+</div>
 
   </div>
 

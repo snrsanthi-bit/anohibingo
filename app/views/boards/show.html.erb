@@ -46,34 +46,69 @@
         </div>
       </div>
 
-      <div class="board">
-        <% @game.player_board.each do |row| %>
-          <% row.each do |number| %>
+<div class="max-w-md mx-auto">
+  <div class="paper-texture hand-drawn-border p-4 shadow-sm relative overflow-hidden">
+    <div class="grid grid-cols-5 gap-0">
 
-            <% if @game.player_marks.include?(number) %>
-              <div class="cell player-mark">
-                <%= number %>
-              </div>
+      <% @game.player_board.each_with_index do |row, row_index| %>
+        <% row.each_with_index do |number, col_index| %>
 
-            <% elsif @game.player_obstacles.include?(number) %>
-              <div class="cell opponent-mark">
-                <%= number %>
-              </div>
+          <% if @game.player_marks.include?(number) %>
 
-            <% else %>
-              <%= button_to mark_path(number: number),
-                            method: :post,
-                            class: "cell cell-button" do %>
-                <%= number %>
-              <% end %>
+            <div class="relative w-full h-24 flex items-center justify-center border-ink/20
+                        <%= 'border-r' unless col_index == 4 %>
+                        <%= 'border-b' unless row_index == 4 %>
+                        bg-transparent p-0">
+
+              <span class="font-hand text-3xl">
+                <%= "%02d" % number %>
+              </span>
+
+              <div class="scribble-circle"></div>
+            </div>
+
+          <% elsif @game.player_obstacles.include?(number) %>
+
+            <div class="relative w-full h-24 flex items-center justify-center border-ink/20
+                        <%= 'border-r' unless col_index == 4 %>
+                        <%= 'border-b' unless row_index == 4 %>
+                        bg-transparent p-0">
+
+              <span class="font-hand text-3xl">
+                <%= "%02d" % number %>
+              </span>
+
+              <div class="scribble-x"></div>
+            </div>
+
+          <% else %>
+
+            <%= button_to mark_path(number: number),
+                          method: :post,
+                          form: { class: "contents" },
+                          class: "relative w-full h-24 flex items-center justify-center border-ink/20
+                                  #{'border-r' unless col_index == 4}
+                                  #{'border-b' unless row_index == 4}
+                                  bg-transparent p-0" do %>
+
+              <span class="font-hand text-3xl">
+                <%= "%02d" % number %>
+              </span>
+
             <% end %>
 
           <% end %>
+
         <% end %>
-      </div>
-      <%=link_to root_path, class: "block w-full py-4 text-2xl font-black bg-primary text-white hand-drawn-border border-primary shadow-[4px_4px_0px_0px_rgba(17,82,212,0.3)] hover:translate-y-1 hover:shadow-none transition-all duration-75 text-center" do %>
-                    もうやめる！！
-                <% end %>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+<%= link_to root_path,
+            class: "block w-full mt-4 py-4 text-2xl font-black bg-primary text-white hand-drawn-border border-primary shadow-[4px_4px_0px_0px_rgba(17,82,212,0.3)] hover:translate-y-1 hover:shadow-none transition-all duration-75 text-center" do %>
+  もうやめる！！
+<% end %>
 
     </div>
 

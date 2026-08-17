@@ -1,3 +1,14 @@
+<!-- Background Doodles -->
+<div class="absolute top-10 right-10 opacity-20 rotate-12">
+<span class="material-symbols-outlined text-6xl text-primary">grid_4x4</span>
+</div>
+<div class="absolute bottom-20 left-10 opacity-20 -rotate-12">
+<span class="material-symbols-outlined text-7xl text-primary">edit</span>
+</div>
+<div class="absolute top-1/4 left-5 opacity-10">
+<span class="material-symbols-outlined text-4xl text-primary">auto_awesome</span>
+</div>
+
 <main class="relative flex min-h-screen w-full flex-col paper-texture overflow-x-hidden p-6 mx-auto max-w-4xl md:py-12">
 
   <% player = @player %>
@@ -26,8 +37,11 @@
       <div class="grid grid-cols-5 gap-2">
         <% @game.board_for(player).each do |row| %>
           <% row.each do |number| %>
-            <div class="relative aspect-square bg-primary/5 rounded border border-primary/10 flex items-center justify-center font-bold">
-              <%= "%02d" % number %>
+            <div class="relative aspect-square bg-primary/5 rounded border border-primary/10 flex items-center justify-center">
+              <span class="font-hand text-2xl">
+                <%= "%02d" % number %>
+              </span>
+
               <% if @game.marks_for(player).include?(number) %>
                 <div class="scribble-circle"></div>
               <% elsif @game.obstacles_for(player).include?(number) %>
@@ -46,8 +60,11 @@
       <div class="grid grid-cols-5 gap-2">
         <% @game.board_for(opponent).each do |row| %>
           <% row.each do |number| %>
-            <div class="relative aspect-square bg-gray-100 rounded border border-gray-300 flex items-center justify-center font-bold">
-              <%= "%02d" % number %>
+            <div class="relative aspect-square bg-gray-100 rounded border border-gray-300 flex items-center justify-center">
+              <span class="font-hand text-2xl">
+                <%= "%02d" % number %>
+              </span>
+
               <% if @game.marks_for(opponent).include?(number) %>
                 <div class="scribble-circle"></div>
               <% elsif @game.obstacles_for(opponent).include?(number) %>
