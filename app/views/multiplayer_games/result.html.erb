@@ -89,20 +89,27 @@
           class: "bg-primary/10 text-primary font-semibold py-4 rounded-full text-center" %>
 
   </div>
-  <script>
+ <script>
+(() => {
   const roomId = <%= @game.room.id %>
+  const oldGameId = <%= @game.id %>
 
-    setInterval(() => {
-      fetch(`/rooms/${roomId}/rematch_status`)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
+  const checkRematch = setInterval(() => {
+    fetch(`/rooms/${roomId}/rematch_status`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
 
-          if (data.player1_rematch && data.player2_rematch) {
-            window.location.href = `/multiplayer_games/${data.game_id}`;
-          }
-        })
-          }, 1000)
-  </script>
+       if (data.game_id && data.game_id !== oldGameId) {
+          window.location.href = `/multiplayer_games/${data.game_id}`
+        }
+      })
+  }, 1000)
+
+  document.addEventListener("turbo:before-cache", () => {
+    clearInterval(checkRematch)
+  }, { once: true })
+})()
+</script>
 
 </main>
